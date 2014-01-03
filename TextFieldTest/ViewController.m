@@ -15,17 +15,30 @@
 
 @implementation ViewController
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    if(2 == textField.tag)
+        return NO;
+    return YES;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    NSLog(@"input : %@", textField.text);
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if(3 == textField.tag && NSOrderedSame == [string compare:@"z" options:NSCaseInsensitiveSearch])
+        return NO;
+    return YES;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
 }
-- (void)viewDidAppear:(BOOL)animated{
-    [self.textField becomeFirstResponder];
-}
-- (IBAction)dismissKeyboard:(id)sender {
-    [self.textField resignFirstResponder];
-}
+
 
 - (void)didReceiveMemoryWarning
 {
